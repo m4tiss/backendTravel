@@ -1,28 +1,28 @@
 package com.example.backendTravel.api.model;
 
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name = "users")
+@Data
 public class User {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userid")
+    private Long userId;
+    @Column(name = "nickname")
+    private String nickname;
 
-    private String name;
+    @Column(name = "email")
+    private String email;
 
-    public User(int id, String name){
-        this.id = id;
-        this.name = name;
-    }
+    @Column(name = "password")
+    private String password;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "role")
+    private String role;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Column(name = "userimage")
+    private String userImage;
 }

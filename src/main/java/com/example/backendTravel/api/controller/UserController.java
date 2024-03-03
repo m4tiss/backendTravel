@@ -1,13 +1,11 @@
 package com.example.backendTravel.api.controller;
 
-
 import com.example.backendTravel.api.model.User;
-import com.example.backendTravel.service.UserService;
+import com.example.backendTravel.api.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -18,12 +16,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public User getUser(@RequestParam Integer id){
-        Optional<Object> user = userService.getUser(id);
-        if(user.isPresent()){
-            return (User) user.get();
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> users = userService.getAllUsers();
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(users);
         }
-        return null;
     }
 }
