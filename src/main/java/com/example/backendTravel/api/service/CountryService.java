@@ -24,4 +24,8 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
+    public boolean existCountry(Long id) {
+        return countryRepository.findById(id.intValue()).isPresent();
+    }
+
 }
