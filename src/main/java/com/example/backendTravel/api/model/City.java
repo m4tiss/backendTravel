@@ -31,4 +31,7 @@ public class City {
 
     @Column(name = "rating")
     private float rating;
+
+    @Column(name = "population")
+    private int population;
 }

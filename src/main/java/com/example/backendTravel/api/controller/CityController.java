@@ -6,10 +6,7 @@ import com.example.backendTravel.api.service.CityService;
 import com.example.backendTravel.api.dto.CityDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +20,16 @@ public class CityController {
         this.cityService = cityService;
     }
 
+
+    @GetMapping("/getCity/{id}")
+    public ResponseEntity<City> getCityById(@PathVariable("id") Integer id) {
+        Optional<City> cityOptional = cityService.getCity(id);
+        if (cityOptional.isPresent()) {
+            return ResponseEntity.ok(cityOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @GetMapping("/getAllCities")
     public ResponseEntity<List<City>> getAllCities() {
         List<City> cities = cityService.getAllCities();

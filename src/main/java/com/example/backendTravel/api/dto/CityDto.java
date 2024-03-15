@@ -15,6 +15,7 @@ public class CityDto {
     private String cityImage;
     private String description;
     private float rating;
+    private int population;
 
     public static CityDto fromCity(City city) {
         CityDto cityDto = new CityDto();
@@ -23,6 +24,7 @@ public class CityDto {
         cityDto.setCityImage(city.getCityImage());
         cityDto.setDescription(city.getDescription());
         cityDto.setRating(city.getRating());
+        cityDto.setPopulation(city.getPopulation());
         return cityDto;
     }
 }
