@@ -1,6 +1,7 @@
 package com.example.backendTravel.api.service;
 
 
+import com.example.backendTravel.api.model.City;
 import com.example.backendTravel.api.model.Country;
 import com.example.backendTravel.api.repository.CountryRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,11 @@ public class CountryService {
     public List<Country> getAllCountries(){
         return countryRepository.findAll();
     }
+
+    public Country saveCountry(Country country) {
+        return countryRepository.save(country);
+    }
+
 
     public boolean existCountry(Long id) {
         return countryRepository.findById(id.intValue()).isPresent();

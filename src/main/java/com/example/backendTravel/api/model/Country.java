@@ -16,8 +16,10 @@ public class Country {
     @Column(name = "countryid")
     private Long countryId;
 
-    @Column(name = "continentid")
-    private Long continentId;
+    @ManyToOne
+    @JoinColumn(name = "continentid")
+    private Continent continent;
+
 
     @Column(name = "name")
     private String name;
