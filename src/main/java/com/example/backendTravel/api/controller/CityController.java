@@ -37,25 +37,28 @@ public class CityController {
     private CountryRepository countryRepository;
 
     @PostMapping("/addCity")
-    public ResponseEntity<City> addCity(@RequestBody CityDto cityDTO) {
+    public ResponseEntity<CityDto> addCity(@RequestBody CityDto cityDTO) {
 
         City city = new City();
-        city.setCountryId(cityDTO.getCountryId());
         city.setName(cityDTO.getName());
         city.setCityImage(cityDTO.getCityImage());
         city.setDescription(cityDTO.getDescription());
         city.setRating(cityDTO.getRating());
 
-
-        if (countryRepository.existsById(cityDTO.getCountryId().intValue())) {
-            city.setCountryId(cityDTO.getCountryId());
+        Optional<Country> countryOptional = countryRepository.findById(Math.toIntExact(cityDTO.getCountryId()));
+        if (countryOptional.isPresent()) {
+            city.setCountry(countryOptional.get());
         } else {
             return ResponseEntity.notFound().build();
         }
 
         City savedCity = cityService.saveCity(city);
 
-        return ResponseEntity.ok(savedCity);
+        CityDto savedCityDto = CityDto.fromCity(savedCity);
+
+        return ResponseEntity.ok(savedCityDto);
     }
+
+
 }
 
