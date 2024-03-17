@@ -85,6 +85,11 @@ public class CityController {
         return ResponseEntity.ok(updatedCityDto);
     }
 
+    @GetMapping("/getMostPopularCities")
+    public ResponseEntity<List<City>> getMostPopularCities() {
+        List<City> popularCities = cityService.getMostPopularCities();
+        return ResponseEntity.ok().body(popularCities);
+    }
 
 }
 
