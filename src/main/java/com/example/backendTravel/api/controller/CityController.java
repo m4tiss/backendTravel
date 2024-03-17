@@ -67,6 +67,24 @@ public class CityController {
         return ResponseEntity.ok(savedCityDto);
     }
 
+    @PutMapping("/updateCity/{id}")
+    public ResponseEntity<CityDto> updateCity(@PathVariable Long id, @RequestBody CityDto cityDTO) {
+        Optional<City> cityOptional = cityService.getCity(Math.toIntExact(id));
+        if (!cityOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        City city = cityOptional.get();
+        city.setName(cityDTO.getName());
+        city.setDescription(cityDTO.getDescription());
+        city.setPopulation(cityDTO.getPopulation());
+
+        City updatedCity = cityService.saveCity(city);
+        CityDto updatedCityDto = CityDto.fromCity(updatedCity);
+
+        return ResponseEntity.ok(updatedCityDto);
+    }
+
 
 }
 
