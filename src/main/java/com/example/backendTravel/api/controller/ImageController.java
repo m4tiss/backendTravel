@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -38,12 +41,28 @@ public class ImageController {
         }
     }
 
-
     @PostMapping
-    public ResponseEntity<String> saveImage(@RequestBody byte[] imageData, @RequestParam String imageName) {
+    public ResponseEntity<String> saveImage(@RequestParam("image") MultipartFile image,
+                                            @RequestParam("path") String path) {
         try {
-            imageService.saveImage(imageData, imageName);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Image saved successfully");
+            if (image != null && !image.isEmpty()) {
+                byte[] imageData = image.getBytes();
+                String imageName = image.getOriginalFilename();
+                String imagePath = "src/main/resources/static/images/"+ path + imageName;
+
+                File directory = new File("src/main/resources/static/images"+"/" +path);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(imagePath)) {
+                    fos.write(imageData);
+                }
+
+                return ResponseEntity.status(HttpStatus.CREATED).body("Image saved successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Image data is missing");
+            }
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save image");
         }
