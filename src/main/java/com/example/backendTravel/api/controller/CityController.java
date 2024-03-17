@@ -51,6 +51,7 @@ public class CityController {
         city.setCityImage(cityDTO.getCityImage());
         city.setDescription(cityDTO.getDescription());
         city.setRating(cityDTO.getRating());
+        city.setPopulation(cityDTO.getPopulation());
 
         Optional<Country> countryOptional = countryRepository.findById(Math.toIntExact(cityDTO.getCountryId()));
         if (countryOptional.isPresent()) {
