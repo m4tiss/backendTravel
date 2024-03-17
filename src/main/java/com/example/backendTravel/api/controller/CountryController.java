@@ -65,4 +65,24 @@ public class CountryController {
         return ResponseEntity.ok(savedCountryDto);
     }
 
+
+    @PutMapping("/updateCountry/{id}")
+    public ResponseEntity<CountryDto> updateCountry(@PathVariable Long id, @RequestBody CountryDto countryDto) {
+        Optional<Country> countryOptional = countryService.getCountry(Math.toIntExact(id));
+
+        if (countryOptional.isPresent()) {
+            Country country = countryOptional.get();
+            country.setName(countryDto.getName());
+            country.setFlagImage(countryDto.getFlagImage());
+            country.setDescription(countryDto.getDescription());
+
+            Country savedCountry = countryService.saveCountry(country);
+
+            CountryDto savedCountryDto = CountryDto.fromCountry(savedCountry);
+
+            return ResponseEntity.ok(savedCountryDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
