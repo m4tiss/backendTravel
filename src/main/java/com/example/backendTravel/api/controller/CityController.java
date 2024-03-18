@@ -91,5 +91,14 @@ public class CityController {
         return ResponseEntity.ok().body(popularCities);
     }
 
+    @GetMapping("/getCitiesByContinent/{continent}")
+    public ResponseEntity<List<City>> getCitiesByContinent(@PathVariable("continent") String continent) {
+        List<City> citiesByContinent = cityService.getCitiesByContinent(continent);
+        if (citiesByContinent.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(citiesByContinent);
+        }
+    }
 }
 

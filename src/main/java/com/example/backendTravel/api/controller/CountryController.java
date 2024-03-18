@@ -85,4 +85,14 @@ public class CountryController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/getCountriesByContinent/{continent}")
+    public ResponseEntity<List<Country>> getCountriesByContinent(@PathVariable("continent") String continent) {
+        List<Country> countriesByContinent = countryService.getCountriesByContinent(continent);
+        if (countriesByContinent.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(countriesByContinent);
+        }
+    }
+
 }

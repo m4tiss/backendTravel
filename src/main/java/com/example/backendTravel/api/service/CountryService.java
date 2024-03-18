@@ -29,6 +29,9 @@ public class CountryService {
         return countryRepository.save(country);
     }
 
+    public List<Country> getCountriesByContinent(String continent) {
+        return countryRepository.getCountriesByContinent(continent);
+    }
 
     public boolean existCountry(Long id) {
         return countryRepository.findById(id.intValue()).isPresent();

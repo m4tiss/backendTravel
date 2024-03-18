@@ -37,4 +37,8 @@ public class CityService {
         return cityRepository.getMostPopularCities();
     }
 
+    public List<City> getCitiesByContinent(String continent) {
+        return cityRepository.getByContinent(continent);
+    }
+
 }
