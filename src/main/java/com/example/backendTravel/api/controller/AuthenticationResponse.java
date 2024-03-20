@@ -1,5 +1,7 @@
 package com.example.backendTravel.api.controller;
 
+import com.example.backendTravel.api.model.Role;
+import com.example.backendTravel.api.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,4 +14,8 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
 
     private String token;
+    private String nickname;
+    private String email;
+    private String userImage;
+    private Role role;
 }
