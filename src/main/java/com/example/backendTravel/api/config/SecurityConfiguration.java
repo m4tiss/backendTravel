@@ -24,11 +24,14 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(
-                        authorize -> authorize.requestMatchers("/getAllCountries").permitAll()
+                .authorizeHttpRequests
+                        (
+                        authorize -> authorize.requestMatchers("/public/**").permitAll()
+                                .requestMatchers("/images/**").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
-                ) .sessionManagement(
+                )
+                .sessionManagement(
                         session -> session
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 ) .authenticationProvider(authenticationProvider)

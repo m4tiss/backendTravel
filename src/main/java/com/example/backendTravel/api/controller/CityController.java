@@ -21,7 +21,7 @@ public class CityController {
     }
 
 
-    @GetMapping("/getCity/{id}")
+    @GetMapping("/public/getCity/{id}")
     public ResponseEntity<City> getCityById(@PathVariable("id") Integer id) {
         Optional<City> cityOptional = cityService.getCity(id);
         if (cityOptional.isPresent()) {
@@ -30,7 +30,7 @@ public class CityController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/getAllCities")
+    @GetMapping("/public/getAllCities")
     public ResponseEntity<List<City>> getAllCities() {
         List<City> cities = cityService.getAllCities();
         if (cities.isEmpty()) {
@@ -85,13 +85,13 @@ public class CityController {
         return ResponseEntity.ok(updatedCityDto);
     }
 
-    @GetMapping("/getMostPopularCities")
+    @GetMapping("/public/getMostPopularCities")
     public ResponseEntity<List<City>> getMostPopularCities() {
         List<City> popularCities = cityService.getMostPopularCities();
         return ResponseEntity.ok().body(popularCities);
     }
 
-    @GetMapping("/getCitiesByContinent/{continent}")
+    @GetMapping("/public/getCitiesByContinent/{continent}")
     public ResponseEntity<List<City>> getCitiesByContinent(@PathVariable("continent") String continent) {
         List<City> citiesByContinent = cityService.getCitiesByContinent(continent);
         if (citiesByContinent.isEmpty()) {

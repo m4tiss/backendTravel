@@ -16,7 +16,7 @@ public class ContinentController {
         this.continentService = continentService;
     }
 
-    @GetMapping("/getAllContinents")
+    @GetMapping("/public/getAllContinents")
     public ResponseEntity<List<Continent>> getAllContinents() {
         List<Continent> continents = continentService.getAllContinents();
         if (continents.isEmpty()) {

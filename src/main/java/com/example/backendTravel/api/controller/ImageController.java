@@ -31,6 +31,7 @@ public class ImageController {
     @GetMapping("/{imageName:.+}")
     public ResponseEntity<byte[]> getImage(@PathVariable String imageName) {
         try {
+
             Resource resource = resourceLoader.getResource("classpath:/static/images/" + imageName);
             InputStream inputStream = resource.getInputStream();
             byte[] imageData = new byte[inputStream.available()];

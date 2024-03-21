@@ -21,7 +21,7 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping("/getAllCountries")
+    @GetMapping("/public/getAllCountries")
     public ResponseEntity<List<Country>> getAllContinents() {
         List<Country> countries = countryService.getAllCountries();
         if (countries.isEmpty()) {
@@ -31,7 +31,7 @@ public class CountryController {
         }
     }
 
-    @GetMapping("/getCountry/{id}")
+    @GetMapping("/public/getCountry/{id}")
     public ResponseEntity<Country> getCountryById(@PathVariable("id") Integer id) {
         Optional<Country> countryOptional = countryService.getCountry(id);
         if (countryOptional.isPresent()) {
@@ -85,7 +85,7 @@ public class CountryController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/getCountriesByContinent/{continent}")
+    @GetMapping("/public/getCountriesByContinent/{continent}")
     public ResponseEntity<List<Country>> getCountriesByContinent(@PathVariable("continent") String continent) {
         List<Country> countriesByContinent = countryService.getCountriesByContinent(continent);
         if (countriesByContinent.isEmpty()) {
