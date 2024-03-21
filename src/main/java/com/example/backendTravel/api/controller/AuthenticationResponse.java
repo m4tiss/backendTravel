@@ -12,10 +12,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthenticationResponse {
-
     private String token;
-    private String nickname;
-    private String email;
-    private String userImage;
-    private Role role;
 }

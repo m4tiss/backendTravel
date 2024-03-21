@@ -64,10 +64,6 @@ public class AuthenticationServiceClass implements AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .role(user.getRole())
-                .email(user.getEmail())
-                .nickname(user.getNickname())
-                .userImage(user.getUserImage())
                 .build();
     }
 }
