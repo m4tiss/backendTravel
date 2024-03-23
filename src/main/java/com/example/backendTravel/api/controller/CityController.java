@@ -4,6 +4,7 @@ import com.example.backendTravel.api.model.Country;
 import com.example.backendTravel.api.repository.CountryRepository;
 import com.example.backendTravel.api.service.CityService;
 import com.example.backendTravel.api.dto.CityDto;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -86,7 +87,7 @@ public class CityController {
     }
 
     @GetMapping("/public/getMostPopularCities")
-    public ResponseEntity<List<City>> getMostPopularCities() {
+    public ResponseEntity<List<City>> getMostPopularCities(HttpServletRequest request) {
         List<City> popularCities = cityService.getMostPopularCities();
         return ResponseEntity.ok().body(popularCities);
     }
