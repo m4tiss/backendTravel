@@ -1,5 +1,6 @@
 package com.example.backendTravel.api.service;
 
+import com.example.backendTravel.api.model.City;
 import com.example.backendTravel.api.model.User;
 import com.example.backendTravel.api.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class UserService {
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
+    public User save(User user) { return userRepository.save(user); }
 
 }
 

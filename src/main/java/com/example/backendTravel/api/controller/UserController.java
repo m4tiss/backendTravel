@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -53,5 +55,25 @@ public class UserController {
 
             return ResponseEntity.ok(responseUser);
         }
+    }
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User updatedUser) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        Optional<User> userOptional = userService.findByEmail(userEmail);
+
+
+        if (!userOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOptional.get();
+        user.setNickname(updatedUser.getNickname());
+        user.setEmail(updatedUser.getEmail());
+
+        User updatedUserData = userService.save(user);
+
+        return ResponseEntity.ok(updatedUserData);
     }
 }
