@@ -10,19 +10,19 @@ import lombok.Setter;
 @Setter
 @Getter
 public class OpinionDto {
-//    private Long userId;
     private Long cityId;
     private String title;
     private String description;
     private float rating;
+    private String opinionImage;
 
     public static OpinionDto fromOpinion(Opinion opinion) {
         OpinionDto opinionDto = new OpinionDto();
-//        opinionDto.setUserId(opinion.getUser().getUserId());
         opinionDto.setCityId(opinion.getCity().getCityId());
         opinionDto.setTitle(opinion.getTitle());
         opinionDto.setDescription(opinion.getDescription());
         opinionDto.setRating(opinion.getRating());
+        opinionDto.setOpinionImage(opinion.getOpinionImage());
         return opinionDto;
     }
 }

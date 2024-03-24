@@ -34,7 +34,10 @@ public class Opinion {
     @Column(name = "description")
     private String description;
 
-     @Column(name = "rating")
+    @Column(name = "rating")
     private float rating;
+
+    @Column(name = "opinionimage")
+    private String opinionImage;
 
 }

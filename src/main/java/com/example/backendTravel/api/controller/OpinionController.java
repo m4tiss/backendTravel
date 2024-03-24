@@ -53,6 +53,7 @@ public class OpinionController {
         opinion.setTitle(opinionDTO.getTitle());
         opinion.setDescription(opinionDTO.getDescription());
         opinion.setRating(opinionDTO.getRating());
+        opinion.setOpinionImage(opinionDTO.getOpinionImage());
         opinion.setUser(user);
 
         Optional<City> cityOptional = cityRepository.findById(Math.toIntExact(opinionDTO.getCityId()));
