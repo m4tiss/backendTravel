@@ -87,9 +87,15 @@ public class CityController {
     }
 
     @GetMapping("/public/getMostPopularCities")
-    public ResponseEntity<List<City>> getMostPopularCities(HttpServletRequest request) {
+    public ResponseEntity<List<City>> getMostPopularCities() {
         List<City> popularCities = cityService.getMostPopularCities();
         return ResponseEntity.ok().body(popularCities);
+    }
+
+    @GetMapping("/getMostPopularCity")
+    public ResponseEntity<City> getMostPopularCity() {
+        City mostPopularCity = cityService.getMostPopularCity();
+        return ResponseEntity.ok().body(mostPopularCity);
     }
 
     @GetMapping("/public/getCitiesByContinent/{continent}")

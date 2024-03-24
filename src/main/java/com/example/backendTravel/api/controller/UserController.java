@@ -1,5 +1,6 @@
 package com.example.backendTravel.api.controller;
 
+import com.example.backendTravel.api.model.Role;
 import com.example.backendTravel.api.model.User;
 import com.example.backendTravel.api.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -76,4 +77,16 @@ public class UserController {
 
         return ResponseEntity.ok(updatedUserData);
     }
+
+    @GetMapping("/countUsers")
+    public ResponseEntity<Long> countUsers() {
+        try {
+            long count = userService.countUsersByRole(Role.valueOf("USER"));
+            return ResponseEntity.ok(count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
+    }
+
 }

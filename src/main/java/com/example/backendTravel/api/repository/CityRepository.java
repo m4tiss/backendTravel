@@ -15,6 +15,12 @@ public interface CityRepository  extends JpaRepository<City, Integer> {
     List<City> getMostPopularCities();
 
 
+
+    @Query("SELECT c FROM City c ORDER BY c.rating DESC LIMIT 1")
+    City getMostPopularCity();
+
     @Query("SELECT city FROM City city JOIN city.country country JOIN country.continent continent WHERE continent.name = :continent")
     List<City> getByContinent(@Param("continent") String continent);
+
+
 }
