@@ -15,10 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -68,6 +67,16 @@ public class OpinionController {
         OpinionDto savedOpinionDto = OpinionDto.fromOpinion(savedOpinion);
 
         return ResponseEntity.ok(savedOpinionDto);
+    }
+    @GetMapping("/public/getOpinionsByCity/{cityId}")
+    public ResponseEntity<List<Opinion>> getOpinionsByCity(@PathVariable Long cityId) {
+        List<Opinion> opinions = opinionService.getOpinionsByCity(cityId);
+
+        if (opinions.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(opinions);
     }
 
 }
