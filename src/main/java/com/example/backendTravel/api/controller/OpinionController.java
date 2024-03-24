@@ -54,7 +54,15 @@ public class OpinionController {
 
         Optional<City> cityOptional = cityRepository.findById(Math.toIntExact(opinionDTO.getCityId()));
         if (cityOptional.isPresent()) {
-            opinion.setCity(cityOptional.get());
+            City city = cityOptional.get();
+            opinion.setCity(city);
+
+            double currentRating = city.getRating();
+            int numberOfOpinions = opinionService.getOpinionsByCity(city.getCityId()).size();
+            float newRating = (float) (((currentRating * numberOfOpinions) + opinionDTO.getRating()) / (numberOfOpinions + 1));
+            city.setRating(newRating);
+            cityRepository.save(city);
+
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -62,6 +70,7 @@ public class OpinionController {
         Opinion savedOpinion = opinionService.saveOpinion(opinion);
 
         OpinionDto savedOpinionDto = OpinionDto.fromOpinion(savedOpinion);
+
 
         return ResponseEntity.ok(savedOpinionDto);
     }
