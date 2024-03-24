@@ -43,7 +43,6 @@ public class CityController {
 
     @Autowired
     private CountryRepository countryRepository;
-
     @PostMapping("/addCity")
     public ResponseEntity<CityDto> addCity(@RequestBody CityDto cityDTO) {
 
@@ -67,6 +66,7 @@ public class CityController {
 
         return ResponseEntity.ok(savedCityDto);
     }
+
 
     @PutMapping("/updateCity/{id}")
     public ResponseEntity<CityDto> updateCity(@PathVariable Long id, @RequestBody CityDto cityDTO) {
