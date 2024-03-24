@@ -73,10 +73,25 @@ public class OpinionController {
         List<Opinion> opinions = opinionService.getOpinionsByCity(cityId);
 
         if (opinions.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.ok(opinions);
     }
 
+    @GetMapping("/public/getRatingByCity/{cityId}")
+    public ResponseEntity<Double> getRatingByCity(@PathVariable Long cityId) {
+        List<Opinion> opinions = opinionService.getOpinionsByCity(cityId);
+
+        if (opinions.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        double totalRating = 0.0;
+        for (Opinion opinion : opinions) {
+            totalRating += opinion.getRating();
+        }
+        double averageRating = totalRating / opinions.size();
+        return ResponseEntity.ok(averageRating);
+    }
 }
