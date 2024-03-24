@@ -1,6 +1,7 @@
 package com.example.backendTravel.api.service;
 
 import com.example.backendTravel.api.model.Opinion;
+import com.example.backendTravel.api.model.User;
 import com.example.backendTravel.api.repository.OpinionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,14 @@ public class OpinionService {
 
     public List<Opinion> getOpinionsByCity(Long cityId) {
         return opinionRepository.findByCityId(cityId);
+    }
+
+    public Long countOpinions() {
+        return opinionRepository.count();
+    }
+
+    public User getMostActiveUser() {
+        return opinionRepository.findMostActiveUser();
     }
 
 }

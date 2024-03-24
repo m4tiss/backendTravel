@@ -2,10 +2,7 @@ package com.example.backendTravel.api.controller;
 
 import com.example.backendTravel.api.dto.CityDto;
 import com.example.backendTravel.api.dto.OpinionDto;
-import com.example.backendTravel.api.model.City;
-import com.example.backendTravel.api.model.Country;
-import com.example.backendTravel.api.model.Opinion;
-import com.example.backendTravel.api.model.User;
+import com.example.backendTravel.api.model.*;
 import com.example.backendTravel.api.repository.CityRepository;
 import com.example.backendTravel.api.repository.CountryRepository;
 import com.example.backendTravel.api.repository.UserRepository;
@@ -94,4 +91,25 @@ public class OpinionController {
         double averageRating = totalRating / opinions.size();
         return ResponseEntity.ok(averageRating);
     }
+
+    @GetMapping("/getOpinionsPerUser")
+    public ResponseEntity<Double> getOpinionsPerUser() {
+        Long countUsers = userRepository.countUsersByRole(Role.USER);
+        Long countOpinions = opinionService.countOpinions();
+
+        if (countUsers == 0) {
+            return ResponseEntity.badRequest().body(0.0);
+        }
+
+        double averageOpinionsPerUser = (double) countOpinions / countUsers;
+
+        return ResponseEntity.ok(averageOpinionsPerUser);
+    }
+
+    @GetMapping("/getMostActiveUser")
+    public ResponseEntity<String> getMostActiveUser() {
+        User mostActiveUser = opinionService.getMostActiveUser();
+        return ResponseEntity.ok().body(mostActiveUser.getNickname());
+    }
+
 }
