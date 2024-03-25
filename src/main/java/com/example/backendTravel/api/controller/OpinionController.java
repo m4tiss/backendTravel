@@ -74,6 +74,18 @@ public class OpinionController {
 
         return ResponseEntity.ok(savedOpinionDto);
     }
+
+    @GetMapping("/public/getAllOpinions")
+    public ResponseEntity<List<Opinion>> getAllOpinions() {
+        List<Opinion> opinions = opinionService.getAllOpinions();
+
+        if (opinions.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(opinions);
+    }
+
     @GetMapping("/public/getOpinionsByCity/{cityId}")
     public ResponseEntity<List<Opinion>> getOpinionsByCity(@PathVariable Long cityId) {
         List<Opinion> opinions = opinionService.getOpinionsByCity(cityId);
@@ -114,6 +126,40 @@ public class OpinionController {
 
         return ResponseEntity.ok(averageOpinionsPerUser);
     }
+
+    @DeleteMapping("/removeOpinion/{opinionId}")
+    public ResponseEntity<Void> removeOpinion(@PathVariable Long opinionId) {
+
+        Optional<Opinion> opinionOptional = opinionService.findById(opinionId);
+        if (!opinionOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Opinion opinionToRemove = opinionOptional.get();
+        Long cityId = opinionToRemove.getCity().getCityId();
+
+        opinionService.removeOpinion(opinionToRemove);
+
+        List<Opinion> opinions = opinionService.getOpinionsByCity(cityId);
+        double newRating = 0.0;
+        if (!opinions.isEmpty()) {
+            double totalRating = 0.0;
+            for (Opinion opinion : opinions) {
+                totalRating += opinion.getRating();
+            }
+            newRating = totalRating / opinions.size();
+        }
+
+        Optional<City> cityOptional = cityRepository.findById(Math.toIntExact(cityId));
+        if (cityOptional.isPresent()) {
+            City city = cityOptional.get();
+            city.setRating((float) newRating);
+            cityRepository.save(city);
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping("/getMostActiveUser")
     public ResponseEntity<String> getMostActiveUser() {
