@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 @RestController
 @RequestMapping("/images")
@@ -28,20 +25,81 @@ public class ImageController {
         this.resourceLoader = resourceLoader;
     }
 
-    @GetMapping("/{imageName:.+}")
+    @GetMapping("/{imageName}")
     public ResponseEntity<byte[]> getImage(@PathVariable String imageName) {
         try {
+            String imagePath = "src/main/resources/images/" + imageName;
+            File file = new File(imagePath);
 
-            Resource resource = resourceLoader.getResource("classpath:/static/images/" + imageName);
-            InputStream inputStream = resource.getInputStream();
-            byte[] imageData = new byte[inputStream.available()];
-            inputStream.read(imageData);
+            if (!file.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] imageData = inputStream.readAllBytes();
+
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageData);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
+    @GetMapping("/citiesImages/{imageName}")
+    public ResponseEntity<byte[]> getCitiesImage(@PathVariable String imageName) {
+        try {
+            String imagePath = "src/main/resources/images/citiesImages/" + imageName;
+            File file = new File(imagePath);
+
+            if (!file.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] imageData = inputStream.readAllBytes();
+
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageData);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/usersImages/{imageName}")
+    public ResponseEntity<byte[]> getUsersImage(@PathVariable String imageName) {
+        try {
+            String imagePath = "src/main/resources/images/usersImages/" + imageName;
+            File file = new File(imagePath);
+
+            if (!file.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] imageData = inputStream.readAllBytes();
+
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageData);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/opinionsImages/{imageName}")
+    public ResponseEntity<byte[]> getOpinionsImage(@PathVariable String imageName) {
+        try {
+            String imagePath = "src/main/resources/images/opinionsImages/" + imageName;
+            File file = new File(imagePath);
+
+            if (!file.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] imageData = inputStream.readAllBytes();
+
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageData);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
     @PostMapping
     public ResponseEntity<String> saveImage(@RequestParam("image") MultipartFile image,
                                             @RequestParam("path") String path) {
@@ -49,9 +107,9 @@ public class ImageController {
             if (image != null && !image.isEmpty()) {
                 byte[] imageData = image.getBytes();
                 String imageName = image.getOriginalFilename();
-                String imagePath = "src/main/resources/static/images/"+ path + imageName;
+                String imagePath = "src/main/resources/images/"+ path + imageName;
 
-                File directory = new File("src/main/resources/static/images"+"/" +path);
+                File directory = new File("src/main/resources/images"+"/" +path);
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
