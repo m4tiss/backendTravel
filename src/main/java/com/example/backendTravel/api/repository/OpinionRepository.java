@@ -13,6 +13,9 @@ public interface OpinionRepository  extends JpaRepository<Opinion, Integer>{
     @Query("SELECT opinion FROM Opinion opinion WHERE opinion.city.cityId = :cityId")
     List<Opinion> findByCityId(@Param("cityId") Long cityId);
 
+    @Query("SELECT opinion FROM Opinion opinion WHERE opinion.user.userId = :userId")
+    List<Opinion> findByUserId(@Param("userId") Long userId);
+
     @Query("SELECT o.user FROM Opinion o GROUP BY o.user.userId ORDER BY COUNT(o.user.userId) DESC limit 1")
     User findMostActiveUser();
 

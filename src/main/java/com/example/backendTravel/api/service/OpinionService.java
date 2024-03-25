@@ -41,4 +41,6 @@ public class OpinionService {
     public Optional<Opinion> findById(Long opinionId) { return opinionRepository.findById(Math.toIntExact(opinionId)); }
     public void removeOpinion(Opinion opinion) { opinionRepository.delete(opinion); }
 
+    public List<Opinion> getOpinionsByUserId(Long userId) { return opinionRepository.findByUserId(userId); }
+
 }

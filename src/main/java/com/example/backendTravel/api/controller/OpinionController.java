@@ -167,4 +167,20 @@ public class OpinionController {
         return ResponseEntity.ok().body(mostActiveUser.getNickname());
     }
 
+    @GetMapping("/getUserOpinions")
+    public ResponseEntity<List<Opinion>> getUserOpinions() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        Optional<User> userOptional = userRepository.findByEmail(userEmail);
+        if (!userOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOptional.get();
+
+        List<Opinion> userOpinions = opinionService.getOpinionsByUserId(user.getUserId());
+
+        return ResponseEntity.ok(userOpinions);
+    }
+
 }
