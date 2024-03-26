@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 public class CityController {
@@ -105,6 +106,18 @@ public class CityController {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(citiesByContinent);
+        }
+    }
+    @GetMapping("/public/getRandomCityId")
+    public ResponseEntity<Integer> getRandomCityId() {
+        List<City> cities = cityService.getAllCities();
+        if (cities.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            Random random = new Random();
+            int randomIndex = random.nextInt(cities.size());
+            int randomCityId = Math.toIntExact(cities.get(randomIndex).getCityId());
+            return ResponseEntity.ok(randomCityId);
         }
     }
 }
