@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Setter
-@Getter
 public class OpinionDto {
     private Long cityId;
     private String title;

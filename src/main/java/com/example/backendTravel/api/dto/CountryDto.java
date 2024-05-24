@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Setter
-@Getter
 public class CountryDto {
     private Long continentId;
     private String name;

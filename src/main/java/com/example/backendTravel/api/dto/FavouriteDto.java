@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Setter
-@Getter
 public class FavouriteDto {
     private Long cityId;
     public static FavouriteDto fromFavourite(Favourite favourite) {

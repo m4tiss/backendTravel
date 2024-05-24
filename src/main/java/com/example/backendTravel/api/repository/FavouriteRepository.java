@@ -12,9 +12,7 @@ import java.util.Optional;
 public interface FavouriteRepository  extends JpaRepository<Favourite, Integer> {
     @Query("SELECT f FROM Favourite f WHERE f.user.userId = :userId")
     List<Favourite> findByUserId(@Param("userId") Long userId);
-
     Optional<Favourite> findByFavouriteIdAndUserUserId(Long favouriteId, Long userId);
-
     Optional<Favourite> findByUserUserIdAndCityCityId(Long cityId, Long userId);
 
 }

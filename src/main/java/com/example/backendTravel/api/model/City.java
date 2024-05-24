@@ -8,8 +8,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "cities")
 @Data
-@Setter
-@Getter
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
-
     @Query("SELECT c FROM Country c JOIN c.continent co WHERE co.name = :continent")
     List<Country> getCountriesByContinent(@Param("continent") String continent);
 

@@ -13,9 +13,6 @@ public interface CityRepository  extends JpaRepository<City, Integer> {
 
     @Query("SELECT c FROM City c ORDER BY c.rating DESC LIMIT 6")
     List<City> getMostPopularCities();
-
-
-
     @Query("SELECT c FROM City c ORDER BY c.rating DESC LIMIT 1")
     City getMostPopularCity();
 

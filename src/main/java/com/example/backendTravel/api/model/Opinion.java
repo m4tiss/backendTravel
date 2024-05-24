@@ -9,8 +9,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "opinions")
 @Data
-@Setter
-@Getter
 public class Opinion {
 
 

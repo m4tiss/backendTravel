@@ -7,8 +7,6 @@ import lombok.Setter;
 
 
 @Data
-@Setter
-@Getter
 public class CityDto {
     private Long countryId;
     private String name;

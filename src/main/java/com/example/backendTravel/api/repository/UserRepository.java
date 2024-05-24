@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface  UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByEmail(String email);
-
     @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role")
     Long countUsersByRole(@Param("role") Role role);
 
